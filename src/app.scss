@@ -1,0 +1,247 @@
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-left: 80px;
+  padding-right: 80px;
+  @media (max-width: 1439px) {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+  @media (max-width: 1023px) {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  @media (max-width: 768px) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+.modal-window {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #00000098;
+  &__wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 12px;
+    background: #1d1b20;
+    max-width: 501px;
+    width: 100%;
+    padding: 24px 24px 30px;
+    display: flex;
+    flex-direction: column;
+    @media (max-width: 480px) {
+        width: 90%;
+        
+    }
+  }
+
+  &__close-btn {
+    align-self: flex-end;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    @media (hover:hover) {
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+    &:active {
+        opacity: 0.6;
+    }
+  }
+
+  &__input-wrapper {
+    position: relative;
+    &::after {
+        content: '';
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 12px;
+        background-image: url('./assets/edit.svg');
+    }
+  }
+
+  &__title-input {
+    width: 100%;
+    padding: 18px 18px 18px 56px;
+    color: #E8DEF8;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    border-bottom: 2px solid #E8DEF8;
+    @media (max-width: 480px) {
+        font-size: 16px;
+        
+    }
+  }
+
+  &__descr-input {
+    resize: none;
+    width: 100%;
+    height: 183px;
+    color: #938F99;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    margin-top: 16px;
+    padding: 16px;
+    border: 1px solid rgba(147, 143, 153, 0.60);
+  }
+
+  &__functions {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    @media (max-width: 480px) {
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+    }
+  }
+
+  &__btn {
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    max-width: 204px;
+    width: 100%;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    @media (hover:hover) {
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+    &:active {
+        opacity: 0.6;
+    }
+  }
+  &__delete-btn {
+    color: #F9DEDC;
+    background: #8C1D18;
+
+  }
+  &__complete-btn {
+    color: #381E72;
+    background-color: #D0BCFF;
+  }
+
+  &__btn-img {
+  }
+
+  &__btn-text {
+  }
+
+}
+.todo-list {
+  overflow: auto;
+  border-radius: 12px;
+  background: #1d1b20;
+  width: 100%;
+  height: min(623px, 75vh);
+  padding: 20px;
+  scrollbar-width: none;
+  &__item {
+    border-radius: 8px;
+    background: #4a4458;
+    display: flex;
+    padding: 16px;
+    gap: 12px;
+    align-items: center;
+    & + & {
+      margin-top: 16px;
+    }
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    @media (hover:hover) {
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+    &:active {
+        opacity: 0.6;
+    }
+  }
+  &__button {
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    @media (hover:hover) {
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+  }
+
+  &__button-image {
+  }
+
+  &__item-title {
+    color: #e8def8;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 88.889% */
+    letter-spacing: 0.5px;
+  }
+  .completed {
+    opacity: 0.6;
+    text-decoration: line-through #e8def8;
+  }
+}
+
+.task-adding {
+  position: relative;
+  margin-top: 20px;
+  &__input {
+    color: #e0e2ec;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #74777f;
+    width: 100%;
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+  }
+
+  &__button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: #6750a4;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    @media (hover:hover) {
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+    &:active {
+        opacity: 0.6;
+    }
+  }
+
+  &__plus-image {
+  }
+}
