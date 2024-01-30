@@ -1,12 +1,8 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import plus from "./assets/plus.svg";
-import listItem from "./assets/list-item.svg";
-import listItemActive from "./assets/list-item-active.svg";
-import uncompleteBtn from "./assets/uncomplete.svg";
-import closeBtn from "./assets/close.svg";
-import completeBtn from "./assets/complete.svg";
-import deleteBtn from "./assets/delete.svg";
+import { Task } from "./Task";
+import { Modal } from "./Modal";
 import "./app.scss";
 
 function App() {
@@ -18,7 +14,7 @@ function App() {
 
   useEffect(() => {
     const loadFromLocalStorage = () => {
-      if (localStorage.getItem('todoList')) {
+      if (localStorage.getItem("todoList")) {
         setTodoList(JSON.parse(localStorage.getItem("todoList")));
       }
     };
@@ -100,8 +96,7 @@ function App() {
 
   // Function that handle button click to delete a task
   const handleDelete = () => {
-    setTodoList(todoList.toSpliced(currentItemId, 1));
-    setDidUpdate(!didUpdate);
+    setTodoList((prev) => (prev = prev.toSpliced(currentItemId, 1)));
     setIsModalOpen(!isModalOpen);
     updateLocalStorage(todoList.toSpliced(currentItemId, 1));
   };
@@ -109,77 +104,26 @@ function App() {
   return (
     <div className="container">
       {isModalOpen && (
-        <div onClick={closeModal} className="modal-window">
-          <div className="modal-window__wrapper">
-            <img src={closeBtn} alt="" className="modal-window__close-btn" />
-            <div className="modal-window__input-wrapper">
-              <input
-                defaultValue={todoList[currentItemId].title}
-                onChange={handleEditTitle}
-                type="text"
-                className="modal-window__title-input"
-              />
-            </div>
-            <textarea
-              defaultValue={todoList[currentItemId].description}
-              onChange={handleEditDescription}
-              type="text"
-              placeholder="Описание"
-              className="modal-window__descr-input"
-            />
-            <div className="modal-window__functions">
-              <button
-                onClick={handleDelete}
-                className="modal-window__btn modal-window__delete-btn"
-              >
-                <img src={deleteBtn} alt="" className="modal-window__btn-img" />
-                <p className="modal-window__btn-text">Delete task</p>
-              </button>
-              <button
-                onClick={handleComplete}
-                className="modal-window__btn modal-window__complete-btn"
-              >
-                <img
-                  src={
-                    todoList[currentItemId].isCompleted
-                      ? uncompleteBtn
-                      : completeBtn
-                  }
-                  alt=""
-                  className="modal-window__btn-img"
-                />
-                <p className="modal-window__btn-text">
-                  {todoList[currentItemId].isCompleted
-                    ? "Uncomplete task"
-                    : "Complete task"}
-                </p>
-              </button>
-            </div>
-          </div>
-        </div>
+        <Modal
+          closeModal={closeModal}
+          item={todoList[currentItemId]}
+          handleEditTitle={handleEditTitle}
+          handleEditDescription={handleEditDescription}
+          handleDelete={handleDelete}
+          handleComplete={handleComplete}
+        />
       )}
       <ul className="todo-list">
         {todoList.map((value, index) => {
           return (
-            <li
-              onClick={handleModal}
+            <Task
+              handleModal={handleModal}
               key={index}
-              id={index}
-              className={
-                value.isCompleted
-                  ? "todo-list__item completed"
-                  : "todo-list__item"
-              }
-            >
-              <button className="todo-list__button" onClick={handleComplete}>
-                <img
-                  src={value.isCompleted ? listItemActive : listItem}
-                  alt=""
-                  className="todo-list__button-image"
-                />
-              </button>
-              <p className="todo-list__item-title">{value.title}</p>
-            </li>
+              index={index}
+              isCompleted={value.isCompleted}
+              handleComplete={handleComplete}
+              title={value.title}
+            />
           );
         })}
       </ul>
